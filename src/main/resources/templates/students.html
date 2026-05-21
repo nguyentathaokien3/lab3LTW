@@ -1,100 +1,131 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Danh sách sinh viên</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+        margin: 0;
+    }
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #ffe6f0, #e6ffe6);
-            margin: 0;
-            padding: 0;
-        }
+    .container {
+        width: 90%;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
 
-        .container {
-            width: 80%;
-            margin: 50px auto;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            padding: 30px;
-        }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        letter-spacing: 1px;
+    }
 
-        h2 {
-            text-align: center;
-            color: #e91e63; /* hồng đậm */
-            margin-bottom: 25px;
-        }
+    .top-bar {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    .btn-add {
+        padding: 10px 15px;
+        background: #22c55e;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
 
-        thead {
-            background-color: #8bc34a; /* xanh lá chuối */
-            color: white;
-        }
+    .btn-add:hover {
+        background: #16a34a;
+    }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: center;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-        th {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    th {
+        background: #2563eb;
+        color: white;
+        padding: 12px;
+    }
 
-        tr {
-            border-bottom: 1px solid #dddddd;
-        }
+    td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
 
-        tbody tr:nth-child(even) {
-            background-color: #f9fff5;
-        }
+    tr:hover {
+        background: #f1f5f9;
+        transition: 0.2s;
+    }
 
-        tbody tr:hover {
-            background-color: #ffe6f0;
-            transition: 0.3s;
-        }
+    .btn {
+        padding: 6px 10px;
+        border-radius: 6px;
+        color: white;
+        text-decoration: none;
+        font-size: 13px;
+        margin: 0 3px;
+        display: inline-block;
+    }
 
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
+    .edit {
+        background: #f59e0b;
+    }
+
+    .edit:hover {
+        background: #d97706;
+    }
+
+    .delete {
+        background: #ef4444;
+    }
+
+    .delete:hover {
+        background: #dc2626;
+    }
+</style>
 
 <div class="container">
-    <h2> DANH SÁCH SINH VIÊN </h2>
+
+    <h2>📚 DANH SÁCH SINH VIÊN</h2>
+
+    <div class="top-bar">
+        <a class="btn-add" href="/students/add">+ Thêm sinh viên</a>
+    </div>
 
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>Email</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Hành động</th>
+        </tr>
         </thead>
 
         <tbody>
-            <tr th:each="s : ${students}">
-                <td th:text="${s.id}"></td>
-                <td th:text="${s.name}"></td>
-                <td th:text="${s.email}"></td>
-            </tr>
+        <tr th:each="s : ${students}">
+            <td th:text="${s.id}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.email}"></td>
+
+            <td>
+                <a class="btn edit" th:href="@{'/students/edit/' + ${s.id}}">Sửa</a>
+                <a class="btn delete"
+                   th:href="@{'/students/delete/' + ${s.id}}"
+                   onclick="return confirm('Bạn có chắc muốn xóa không?')">
+                    Xóa
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
 
-    <footer>
-        Họ và tên: Nguyễn Tạ Thảo Kiên | IDSV: 104752 | Lớp: ST23C | Gmail: kien104752@gmail.com
-    </footer>
 </div>
-
-</body>
-</html>
